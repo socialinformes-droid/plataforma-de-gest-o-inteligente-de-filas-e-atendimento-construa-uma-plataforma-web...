@@ -14,16 +14,458 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      attendance_logs: {
+        Row: {
+          actual_duration: number
+          clinic_id: string
+          created_at: string
+          day_of_week: number
+          exam_type_id: string
+          finished_at: string
+          id: string
+          started_at: string
+          time_slot: string
+        }
+        Insert: {
+          actual_duration: number
+          clinic_id: string
+          created_at?: string
+          day_of_week: number
+          exam_type_id: string
+          finished_at: string
+          id?: string
+          started_at: string
+          time_slot: string
+        }
+        Update: {
+          actual_duration?: number
+          clinic_id?: string
+          created_at?: string
+          day_of_week?: number
+          exam_type_id?: string
+          finished_at?: string
+          id?: string
+          started_at?: string
+          time_slot?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_logs_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attendance_logs_exam_type_id_fkey"
+            columns: ["exam_type_id"]
+            isOneToOne: false
+            referencedRelation: "exam_types"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      audit_logs: {
+        Row: {
+          action: string
+          clinic_id: string | null
+          created_at: string
+          id: string
+          metadata: Json
+          target_id: string | null
+          target_type: string
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          clinic_id?: string | null
+          created_at?: string
+          id?: string
+          metadata?: Json
+          target_id?: string | null
+          target_type: string
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          clinic_id?: string | null
+          created_at?: string
+          id?: string
+          metadata?: Json
+          target_id?: string | null
+          target_type?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_logs_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinics: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          settings: Json
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          settings?: Json
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          settings?: Json
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      exam_types: {
+        Row: {
+          average_duration: number | null
+          clinic_id: string
+          created_at: string
+          default_duration: number
+          id: string
+          is_active: boolean
+          name: string
+          requires_read_confirm: boolean
+          result_retention_days: number
+          result_visible_to_company: boolean
+          updated_at: string
+        }
+        Insert: {
+          average_duration?: number | null
+          clinic_id: string
+          created_at?: string
+          default_duration?: number
+          id?: string
+          is_active?: boolean
+          name: string
+          requires_read_confirm?: boolean
+          result_retention_days?: number
+          result_visible_to_company?: boolean
+          updated_at?: string
+        }
+        Update: {
+          average_duration?: number | null
+          clinic_id?: string
+          created_at?: string
+          default_duration?: number
+          id?: string
+          is_active?: boolean
+          name?: string
+          requires_read_confirm?: boolean
+          result_retention_days?: number
+          result_visible_to_company?: boolean
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exam_types_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      operational_events: {
+        Row: {
+          clinic_id: string
+          id: string
+          impact_minutes: number
+          note: string | null
+          queue_id: string
+          recorded_at: string
+          recorded_by: string | null
+          type: string
+        }
+        Insert: {
+          clinic_id: string
+          id?: string
+          impact_minutes?: number
+          note?: string | null
+          queue_id: string
+          recorded_at?: string
+          recorded_by?: string | null
+          type: string
+        }
+        Update: {
+          clinic_id?: string
+          id?: string
+          impact_minutes?: number
+          note?: string | null
+          queue_id?: string
+          recorded_at?: string
+          recorded_by?: string | null
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "operational_events_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "operational_events_queue_id_fkey"
+            columns: ["queue_id"]
+            isOneToOne: false
+            referencedRelation: "queues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          clinic_id: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          is_active: boolean
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          clinic_id?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          is_active?: boolean
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          clinic_id?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          is_active?: boolean
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      queue_entries: {
+        Row: {
+          actual_end: string | null
+          actual_start: string | null
+          client_name: string | null
+          clinic_id: string
+          created_at: string
+          estimated_wait: number
+          exam_type_id: string
+          id: string
+          phone: string | null
+          priority: Database["public"]["Enums"]["priority_level"]
+          public_token: string
+          queue_id: string
+          status: Database["public"]["Enums"]["entry_status"]
+          ticket_number: number
+          updated_at: string
+        }
+        Insert: {
+          actual_end?: string | null
+          actual_start?: string | null
+          client_name?: string | null
+          clinic_id: string
+          created_at?: string
+          estimated_wait?: number
+          exam_type_id: string
+          id?: string
+          phone?: string | null
+          priority?: Database["public"]["Enums"]["priority_level"]
+          public_token?: string
+          queue_id: string
+          status?: Database["public"]["Enums"]["entry_status"]
+          ticket_number: number
+          updated_at?: string
+        }
+        Update: {
+          actual_end?: string | null
+          actual_start?: string | null
+          client_name?: string | null
+          clinic_id?: string
+          created_at?: string
+          estimated_wait?: number
+          exam_type_id?: string
+          id?: string
+          phone?: string | null
+          priority?: Database["public"]["Enums"]["priority_level"]
+          public_token?: string
+          queue_id?: string
+          status?: Database["public"]["Enums"]["entry_status"]
+          ticket_number?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "queue_entries_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "queue_entries_exam_type_id_fkey"
+            columns: ["exam_type_id"]
+            isOneToOne: false
+            referencedRelation: "exam_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "queue_entries_queue_id_fkey"
+            columns: ["queue_id"]
+            isOneToOne: false
+            referencedRelation: "queues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      queues: {
+        Row: {
+          clinic_id: string
+          created_at: string
+          date: string
+          id: string
+          pause_reason: string | null
+          status: Database["public"]["Enums"]["queue_status"]
+          updated_at: string
+        }
+        Insert: {
+          clinic_id: string
+          created_at?: string
+          date: string
+          id?: string
+          pause_reason?: string | null
+          status?: Database["public"]["Enums"]["queue_status"]
+          updated_at?: string
+        }
+        Update: {
+          clinic_id?: string
+          created_at?: string
+          date?: string
+          id?: string
+          pause_reason?: string | null
+          status?: Database["public"]["Enums"]["queue_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "queues_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          clinic_id: string | null
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          clinic_id?: string | null
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          clinic_id?: string | null
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_roles_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      can_operate_clinic: {
+        Args: { _clinic_id: string; _user_id: string }
+        Returns: boolean
+      }
+      get_entry_by_token: {
+        Args: { _token: string }
+        Returns: {
+          ahead_count: number
+          clinic_name: string
+          estimated_wait: number
+          exam_type_name: string
+          priority: Database["public"]["Enums"]["priority_level"]
+          queue_position: number
+          status: Database["public"]["Enums"]["entry_status"]
+          ticket_number: number
+        }[]
+      }
+      has_clinic_access: {
+        Args: { _clinic_id: string; _user_id: string }
+        Returns: boolean
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_clinic_admin: {
+        Args: { _clinic_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role:
+        | "super_admin"
+        | "clinic_admin"
+        | "operator"
+        | "viewer"
+        | "company_manager"
+      entry_status: "waiting" | "in_progress" | "done" | "absent"
+      priority_level: "normal" | "elder" | "urgent"
+      queue_status: "open" | "paused" | "closed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +592,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: [
+        "super_admin",
+        "clinic_admin",
+        "operator",
+        "viewer",
+        "company_manager",
+      ],
+      entry_status: ["waiting", "in_progress", "done", "absent"],
+      priority_level: ["normal", "elder", "urgent"],
+      queue_status: ["open", "paused", "closed"],
+    },
   },
 } as const
