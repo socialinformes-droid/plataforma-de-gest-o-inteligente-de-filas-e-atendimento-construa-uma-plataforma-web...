@@ -9,12 +9,19 @@ interface RoleEntry {
   clinic_id: string | null;
 }
 
+interface ClinicOption {
+  id: string;
+  name: string;
+}
+
 interface AuthContextValue {
   user: User | null;
   session: Session | null;
   loading: boolean;
   roles: RoleEntry[];
   clinicId: string | null;
+  setClinicId: (id: string) => void;
+  availableClinics: ClinicOption[];
   hasRole: (role: AppRole) => boolean;
   signOut: () => Promise<void>;
 }
