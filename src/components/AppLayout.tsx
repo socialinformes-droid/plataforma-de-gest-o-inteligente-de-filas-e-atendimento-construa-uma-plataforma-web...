@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Activity, ListOrdered, Monitor, Settings, LogOut, Users, Building2 } from "lucide-react";
+import { Activity, ListOrdered, Monitor, Settings, LogOut, Users, Building2, Calendar } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { to: "/app", label: "Início", icon: Activity, end: true },
   { to: "/app/queue", label: "Fila", icon: ListOrdered },
+  { to: "/app/schedule", label: "Agendamentos", icon: Calendar },
+  { to: "/app/companies", label: "Empresas B2B", icon: Building2 },
   { to: "/app/tv", label: "Painel TV", icon: Monitor },
   { to: "/app/admin", label: "Administração", icon: Settings },
 ];

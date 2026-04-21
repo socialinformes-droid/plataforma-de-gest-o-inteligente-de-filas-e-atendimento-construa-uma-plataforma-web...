@@ -12,7 +12,10 @@ import Dashboard from "./pages/app/Dashboard.tsx";
 import QueuePanel from "./pages/app/QueuePanel.tsx";
 import TVPanel from "./pages/app/TVPanel.tsx";
 import Admin from "./pages/app/Admin.tsx";
+import Schedule from "./pages/app/Schedule.tsx";
+import Companies from "./pages/app/Companies.tsx";
 import ClientView from "./pages/ClientView.tsx";
+import CollaboratorPortal from "./pages/CollaboratorPortal.tsx";
 
 const queryClient = new QueryClient();
 

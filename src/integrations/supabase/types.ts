@@ -14,6 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
+      appointments: {
+        Row: {
+          check_in: string | null
+          check_out: string | null
+          clinic_id: string
+          collaborator_id: string | null
+          company_id: string | null
+          created_at: string
+          exam_type_id: string
+          id: string
+          queue_entry_id: string | null
+          scheduled_at: string
+          status: Database["public"]["Enums"]["appointment_status"]
+          updated_at: string
+        }
+        Insert: {
+          check_in?: string | null
+          check_out?: string | null
+          clinic_id: string
+          collaborator_id?: string | null
+          company_id?: string | null
+          created_at?: string
+          exam_type_id: string
+          id?: string
+          queue_entry_id?: string | null
+          scheduled_at: string
+          status?: Database["public"]["Enums"]["appointment_status"]
+          updated_at?: string
+        }
+        Update: {
+          check_in?: string | null
+          check_out?: string | null
+          clinic_id?: string
+          collaborator_id?: string | null
+          company_id?: string | null
+          created_at?: string
+          exam_type_id?: string
+          id?: string
+          queue_entry_id?: string | null
+          scheduled_at?: string
+          status?: Database["public"]["Enums"]["appointment_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_collaborator_id_fkey"
+            columns: ["collaborator_id"]
+            isOneToOne: false
+            referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_exam_type_id_fkey"
+            columns: ["exam_type_id"]
+            isOneToOne: false
+            referencedRelation: "exam_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_queue_entry_id_fkey"
+            columns: ["queue_entry_id"]
+            isOneToOne: false
+            referencedRelation: "queue_entries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       attendance_logs: {
         Row: {
           actual_duration: number
@@ -135,6 +216,140 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      collaborator_tokens: {
+        Row: {
+          clinic_id: string
+          collaborator_id: string
+          created_at: string
+          expires_at: string
+          id: string
+          is_revoked: boolean
+          token: string
+          used_at: string | null
+        }
+        Insert: {
+          clinic_id: string
+          collaborator_id: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          is_revoked?: boolean
+          token?: string
+          used_at?: string | null
+        }
+        Update: {
+          clinic_id?: string
+          collaborator_id?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          is_revoked?: boolean
+          token?: string
+          used_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "collaborator_tokens_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "collaborator_tokens_collaborator_id_fkey"
+            columns: ["collaborator_id"]
+            isOneToOne: false
+            referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      collaborators: {
+        Row: {
+          clinic_id: string
+          company_id: string
+          cpf: string | null
+          created_at: string
+          email: string
+          id: string
+          name: string
+        }
+        Insert: {
+          clinic_id: string
+          company_id: string
+          cpf?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+        }
+        Update: {
+          clinic_id?: string
+          company_id?: string
+          cpf?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "collaborators_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "collaborators_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      companies: {
+        Row: {
+          clinic_id: string
+          cnpj: string | null
+          contact_email: string
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          clinic_id: string
+          cnpj?: string | null
+          contact_email: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          clinic_id?: string
+          cnpj?: string | null
+          contact_email?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "companies_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       exam_types: {
         Row: {
@@ -427,6 +642,26 @@ export type Database = {
         Args: { _clinic_id: string; _user_id: string }
         Returns: boolean
       }
+      get_collaborator_by_token: {
+        Args: { _token: string }
+        Returns: {
+          clinic_id: string
+          clinic_name: string
+          collaborator_id: string
+          collaborator_name: string
+          company_name: string
+          token_valid: boolean
+        }[]
+      }
+      get_day_occupancy: {
+        Args: { _clinic_id: string; _date: string }
+        Returns: {
+          count: number
+          hour_start: number
+          level: string
+          slot: string
+        }[]
+      }
       get_entry_by_token: {
         Args: { _token: string }
         Returns: {
@@ -455,6 +690,14 @@ export type Database = {
         Args: { _clinic_id: string; _user_id: string }
         Returns: boolean
       }
+      suggest_best_slots: {
+        Args: { _clinic_id: string; _date: string }
+        Returns: {
+          count: number
+          hour_start: number
+          slot_time: string
+        }[]
+      }
     }
     Enums: {
       app_role:
@@ -463,6 +706,13 @@ export type Database = {
         | "operator"
         | "viewer"
         | "company_manager"
+      appointment_status:
+        | "scheduled"
+        | "checked_in"
+        | "in_progress"
+        | "completed"
+        | "no_show"
+        | "cancelled"
       entry_status: "waiting" | "in_progress" | "done" | "absent"
       priority_level: "normal" | "elder" | "urgent"
       queue_status: "open" | "paused" | "closed"
@@ -599,6 +849,14 @@ export const Constants = {
         "operator",
         "viewer",
         "company_manager",
+      ],
+      appointment_status: [
+        "scheduled",
+        "checked_in",
+        "in_progress",
+        "completed",
+        "no_show",
+        "cancelled",
       ],
       entry_status: ["waiting", "in_progress", "done", "absent"],
       priority_level: ["normal", "elder", "urgent"],
