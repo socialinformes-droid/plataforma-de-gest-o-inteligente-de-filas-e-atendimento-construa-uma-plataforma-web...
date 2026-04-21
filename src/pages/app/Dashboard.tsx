@@ -52,24 +52,32 @@ export default function Dashboard() {
       if (queue) {
         tasks.push(
           ...(["waiting", "in_progress", "done", "absent"] as const).map((s) =>
-            supabase
-              .from("queue_entries")
-              .select("id", { count: "exact", head: true })
-              .eq("queue_id", queue.id)
-              .eq("status", s),
+            Promise.resolve(
+              supabase
+                .from("queue_entries")
+                .select("id", { count: "exact", head: true })
+                .eq("queue_id", queue.id)
+                .eq("status", s),
+            ),
           ),
         );
       }
       tasks.push(
-        supabase.from("attendance_logs").select("actual_duration").eq("clinic_id", clinicId).limit(50),
+        Promise.resolve(
+          supabase.from("attendance_logs").select("actual_duration").eq("clinic_id", clinicId).limit(50),
+        ),
         supabase.rpc("get_day_occupancy", { _clinic_id: clinicId, _date: today }),
-        supabase.from("companies").select("id", { count: "exact", head: true }).eq("clinic_id", clinicId),
-        supabase
-          .from("appointments")
-          .select("id", { count: "exact", head: true })
-          .eq("clinic_id", clinicId)
-          .gte("scheduled_at", `${today}T00:00:00`)
-          .lt("scheduled_at", `${today}T23:59:59`),
+        Promise.resolve(
+          supabase.from("companies").select("id", { count: "exact", head: true }).eq("clinic_id", clinicId),
+        ),
+        Promise.resolve(
+          supabase
+            .from("appointments")
+            .select("id", { count: "exact", head: true })
+            .eq("clinic_id", clinicId)
+            .gte("scheduled_at", `${today}T00:00:00`)
+            .lt("scheduled_at", `${today}T23:59:59`),
+        ),
       );
 
       const results = await Promise.all(tasks);
