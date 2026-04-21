@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Activity, ListOrdered, Monitor, Settings, LogOut, Users } from "lucide-react";
+import { Activity, ListOrdered, Monitor, Settings, LogOut, Users, Building2 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -13,7 +14,7 @@ const navItems = [
 ];
 
 export function AppLayout({ children }: { children: ReactNode }) {
-  const { user, signOut, hasRole } = useAuth();
+  const { user, signOut, clinicId, setClinicId, availableClinics } = useAuth();
   const navigate = useNavigate();
 
   return (
