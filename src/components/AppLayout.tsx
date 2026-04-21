@@ -27,6 +27,26 @@ export function AppLayout({ children }: { children: ReactNode }) {
           <span className="text-lg font-semibold tracking-tight">FilaClínica</span>
         </div>
 
+        {availableClinics.length > 0 && (
+          <div className="px-3 pb-3 lg:px-4">
+            <label className="mb-1 flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+              <Building2 className="h-3 w-3" /> Clínica ativa
+            </label>
+            <Select value={clinicId ?? undefined} onValueChange={setClinicId}>
+              <SelectTrigger className="h-9 text-sm">
+                <SelectValue placeholder="Selecionar clínica" />
+              </SelectTrigger>
+              <SelectContent>
+                {availableClinics.map((c) => (
+                  <SelectItem key={c.id} value={c.id}>
+                    {c.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
         <nav className="flex flex-1 flex-row gap-1 overflow-x-auto px-3 pb-3 lg:flex-col lg:overflow-visible lg:pb-0">
           {navItems.map((item) => (
             <NavLink
