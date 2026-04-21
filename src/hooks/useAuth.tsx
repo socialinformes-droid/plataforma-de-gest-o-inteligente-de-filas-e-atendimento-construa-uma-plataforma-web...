@@ -9,12 +9,19 @@ interface RoleEntry {
   clinic_id: string | null;
 }
 
+interface ClinicOption {
+  id: string;
+  name: string;
+}
+
 interface AuthContextValue {
   user: User | null;
   session: Session | null;
   loading: boolean;
   roles: RoleEntry[];
   clinicId: string | null;
+  setClinicId: (id: string) => void;
+  availableClinics: ClinicOption[];
   hasRole: (role: AppRole) => boolean;
   signOut: () => Promise<void>;
 }
@@ -26,19 +33,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [roles, setRoles] = useState<RoleEntry[]>([]);
-  const [clinicId, setClinicId] = useState<string | null>(null);
+  const [clinicId, setClinicIdState] = useState<string | null>(null);
+  const [availableClinics, setAvailableClinics] = useState<ClinicOption[]>([]);
 
   useEffect(() => {
-    // Set up listener FIRST
     const { data: sub } = supabase.auth.onAuthStateChange((_evt, sess) => {
       setSession(sess);
       setUser(sess?.user ?? null);
       if (!sess?.user) {
         setRoles([]);
-        setClinicId(null);
+        setClinicIdState(null);
+        setAvailableClinics([]);
       }
     });
-    // Then fetch session
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
       setUser(data.session?.user ?? null);
@@ -51,18 +58,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!user) return;
     let cancelled = false;
     (async () => {
-      const [{ data: rolesData }, { data: profile }] = await Promise.all([
+      const [{ data: rolesData }, { data: profile }, { data: clinics }] = await Promise.all([
         supabase.from("user_roles").select("role, clinic_id"),
         supabase.from("profiles").select("clinic_id").eq("id", user.id).maybeSingle(),
+        supabase.from("clinics").select("id, name").order("name"),
       ]);
       if (cancelled) return;
       setRoles((rolesData ?? []) as RoleEntry[]);
-      setClinicId(profile?.clinic_id ?? rolesData?.[0]?.clinic_id ?? null);
+      setAvailableClinics((clinics ?? []) as ClinicOption[]);
+      const stored = localStorage.getItem("active_clinic_id");
+      const fallback = profile?.clinic_id ?? rolesData?.find((r) => r.clinic_id)?.clinic_id ?? clinics?.[0]?.id ?? null;
+      const initial = stored && clinics?.some((c) => c.id === stored) ? stored : fallback;
+      setClinicIdState(initial);
     })();
     return () => {
       cancelled = true;
     };
   }, [user]);
+
+  const setClinicId = (id: string) => {
+    localStorage.setItem("active_clinic_id", id);
+    setClinicIdState(id);
+  };
 
   const value: AuthContextValue = {
     user,
@@ -70,6 +87,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     loading,
     roles,
     clinicId,
+    setClinicId,
+    availableClinics,
     hasRole: (r) => roles.some((x) => x.role === r),
     signOut: async () => {
       await supabase.auth.signOut();
