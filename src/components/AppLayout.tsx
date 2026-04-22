@@ -7,10 +7,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { to: "/app", label: "Início", icon: Activity, end: true },
-  { to: "/app/queue", label: "Fila", icon: ListOrdered },
+  { to: "/app", label: "Visão geral", icon: Activity, end: true },
+  { to: "/app/queue", label: "Fluxo Clínica", icon: ListOrdered },
   { to: "/app/schedule", label: "Agendamentos", icon: Calendar },
-  { to: "/app/companies", label: "Empresas B2B", icon: Building2 },
+  { to: "/app/companies", label: "Fluxo Empresa", icon: Building2 },
   { to: "/app/tv", label: "Painel TV", icon: Monitor },
   { to: "/app/admin", label: "Administração", icon: Settings },
 ];
@@ -26,7 +26,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Activity className="h-5 w-5" />
           </div>
-          <span className="text-lg font-semibold tracking-tight">FilaClínica</span>
+          <span className="text-lg font-semibold tracking-tight">FLUXO INTEGRA</span>
         </div>
 
         {availableClinics.length > 0 && (
