@@ -89,7 +89,8 @@ const Index = () => {
 
       {/* PROBLEMA */}
       <section id="problema" className="container mx-auto px-4 py-16 md:py-24">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-[1.05fr_0.95fr] md:items-center">
+          <div>
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">O problema</span>
           <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
             A dor não é esperar — é não saber quanto vai esperar.
@@ -99,6 +100,13 @@ const Index = () => {
             só desconforto: é frustração, quebra de confiança e abandono. A falta de previsibilidade gera picos
             desorganizados, ociosidade em outros horários e sobrecarga operacional.
           </p>
+          </div>
+          <img
+            src={esperaClinica}
+            alt="Pessoas aguardando atendimento em uma clínica"
+            className="aspect-[4/3] w-full rounded-lg object-cover shadow-clinical-lg"
+            loading="lazy"
+          />
         </div>
 
         <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-3">
@@ -125,8 +133,8 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl text-center">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">A solução</span>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
-              Três pilares que reorganizam a experiência de atendimento
+              <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
+              As 3 plataformas conectadas do FLUXO INTEGRA
             </h2>
           </div>
 
@@ -134,18 +142,18 @@ const Index = () => {
             {[
               {
                 icon: Calendar,
-                title: "1. Previsibilidade antes da chegada",
-                desc: "Colaborador recebe link, escolhe entre os 3 melhores horários do dia (com base em ocupação real), vê o checklist de exames e a duração estimada total.",
+                title: "FLUXO VOCÊ",
+                desc: "Cliente acompanha posição na fila, tempo estimado, checklist de exames, marcação online e devolutiva digital.",
               },
               {
                 icon: Eye,
-                title: "2. Transparência em tempo real",
-                desc: "Posição na fila, tempo restante atualizado a cada segundo, status visível pelo celular. Se algo atrasar, o cliente sabe — sem precisar perguntar na recepção.",
+                title: "FLUXO CLÍNICA",
+                desc: "Operação monitora fila, disponibilidade, presença, gargalos, relatórios e fluxo contínuo de dados em tempo real.",
               },
               {
                 icon: Brain,
-                title: "3. Inteligência adaptativa",
-                desc: "O sistema aprende com cada atendimento, recalcula a média móvel por exame, detecta gargalos e ajusta toda a fila em cascata quando algo foge do padrão.",
+                title: "FLUXO EMPRESA",
+                desc: "Empresas acompanham check-in/out, cronogramas obrigatórios, encaminhamento de funcionários e documentos online.",
               },
             ].map((s) => (
               <Card key={s.title} className="border-primary/20 shadow-clinical-lg">
