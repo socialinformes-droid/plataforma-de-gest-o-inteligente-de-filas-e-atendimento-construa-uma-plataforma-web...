@@ -20,6 +20,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
+import esperaClinica from "@/assets/fluxo-espera-clinica.jpg";
+import inclusaoDigital from "@/assets/fluxo-inclusao-digital.jpg";
+import atendimentoHumanizado from "@/assets/fluxo-atendimento-humanizado.jpg";
 
 const Index = () => {
   const { user, loading } = useAuth();
@@ -39,7 +42,7 @@ const Index = () => {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
               <Activity className="h-5 w-5" />
             </div>
-            <span className="text-lg font-semibold tracking-tight">FilaClínica</span>
+            <span className="text-lg font-semibold tracking-tight">FLUXO INTEGRA</span>
           </div>
           <Button asChild>
             <Link to="/auth">
@@ -50,23 +53,27 @@ const Index = () => {
       </header>
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-muted via-background to-background">
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm">
+      <section className="relative overflow-hidden">
+        <img
+          src={atendimentoHumanizado}
+          alt="Profissional de saúde acolhendo paciente em atendimento clínico"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-background/85" />
+        <div className="container relative mx-auto px-4 py-16 md:py-24">
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center gap-2 rounded-full border bg-card/90 px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" />
-              Inclusão digital · Tempo real · Multi-tenant LGPD
+              Fluxo Clínica · Fluxo Você · Fluxo Empresa
             </span>
             <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground md:text-6xl">
-              A espera deixa de ser um mistério.
+              O problema não é só a fila. É a expectativa.
             </h1>
-            <p className="mt-5 text-lg text-muted-foreground md:text-xl">
-              Plataforma inteligente de gestão de filas, agendamentos e devolutiva de exames para clínicas e
-              laboratórios. Transforma incerteza em <strong className="text-foreground">previsibilidade</strong>,
-              ansiedade em <strong className="text-foreground">controle</strong> e atendimento em{" "}
-              <strong className="text-foreground">confiança</strong>.
+            <p className="mt-5 max-w-2xl text-lg text-muted-foreground md:text-xl">
+              Ecossistema inteligente que conecta clínica, cliente e empresa para transformar espera incerta em
+              previsibilidade, transparência e melhor uso da capacidade operacional.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg">
                 <Link to="/auth">
                   Começar agora <ArrowRight className="ml-2 h-4 w-4" />
