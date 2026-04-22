@@ -48,7 +48,7 @@ export default function Dashboard() {
         .eq("date", today)
         .maybeSingle();
 
-      const tasks: Promise<any>[] = [];
+      const tasks: any[] = [];
       if (queue) {
         tasks.push(
           ...(["waiting", "in_progress", "done", "absent"] as const).map((s) =>
@@ -66,7 +66,7 @@ export default function Dashboard() {
         Promise.resolve(
           supabase.from("attendance_logs").select("actual_duration").eq("clinic_id", clinicId).limit(50),
         ),
-        supabase.rpc("get_day_occupancy", { _clinic_id: clinicId, _date: today }),
+        Promise.resolve(supabase.rpc("get_day_occupancy", { _clinic_id: clinicId, _date: today })),
         Promise.resolve(
           supabase.from("companies").select("id", { count: "exact", head: true }).eq("clinic_id", clinicId),
         ),

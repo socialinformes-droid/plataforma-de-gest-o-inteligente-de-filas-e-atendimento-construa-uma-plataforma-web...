@@ -122,8 +122,8 @@ export default function Companies() {
     <AppLayout>
       <div className="mx-auto max-w-6xl px-4 py-8 md:px-8">
         <header className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight">Empresas B2B</h1>
-          <p className="text-sm text-muted-foreground">Gestão de empresas parceiras, colaboradores e tokens de acesso</p>
+          <h1 className="text-2xl font-semibold tracking-tight">Fluxo Empresa</h1>
+          <p className="text-sm text-muted-foreground">Acompanhamento de colaboradores, check-in/check-out, cronogramas e tokens de acesso</p>
         </header>
 
         {loading ? (
@@ -135,7 +135,7 @@ export default function Companies() {
             <TabsList>
               <TabsTrigger value="companies">Empresas ({companies.length})</TabsTrigger>
               <TabsTrigger value="collaborators">Colaboradores ({collaborators.length})</TabsTrigger>
-              <TabsTrigger value="dashboard">Dashboard B2B</TabsTrigger>
+              <TabsTrigger value="dashboard">Acompanhamento</TabsTrigger>
             </TabsList>
 
             {/* COMPANIES */}

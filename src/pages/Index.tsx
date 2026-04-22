@@ -20,6 +20,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
+import esperaClinica from "@/assets/fluxo-espera-clinica.jpg";
+import inclusaoDigital from "@/assets/fluxo-inclusao-digital.jpg";
+import atendimentoHumanizado from "@/assets/fluxo-atendimento-humanizado.jpg";
 
 const Index = () => {
   const { user, loading } = useAuth();
@@ -39,7 +42,7 @@ const Index = () => {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
               <Activity className="h-5 w-5" />
             </div>
-            <span className="text-lg font-semibold tracking-tight">FilaClínica</span>
+            <span className="text-lg font-semibold tracking-tight">FLUXO INTEGRA</span>
           </div>
           <Button asChild>
             <Link to="/auth">
@@ -50,23 +53,27 @@ const Index = () => {
       </header>
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-muted via-background to-background">
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm">
+      <section className="relative overflow-hidden">
+        <img
+          src={atendimentoHumanizado}
+          alt="Profissional de saúde acolhendo paciente em atendimento clínico"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-background/85" />
+        <div className="container relative mx-auto px-4 py-16 md:py-24">
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center gap-2 rounded-full border bg-card/90 px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" />
-              Inclusão digital · Tempo real · Multi-tenant LGPD
+              Fluxo Clínica · Fluxo Você · Fluxo Empresa
             </span>
             <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground md:text-6xl">
-              A espera deixa de ser um mistério.
+              O problema não é só a fila. É a expectativa.
             </h1>
-            <p className="mt-5 text-lg text-muted-foreground md:text-xl">
-              Plataforma inteligente de gestão de filas, agendamentos e devolutiva de exames para clínicas e
-              laboratórios. Transforma incerteza em <strong className="text-foreground">previsibilidade</strong>,
-              ansiedade em <strong className="text-foreground">controle</strong> e atendimento em{" "}
-              <strong className="text-foreground">confiança</strong>.
+            <p className="mt-5 max-w-2xl text-lg text-muted-foreground md:text-xl">
+              Ecossistema inteligente que conecta clínica, cliente e empresa para transformar espera incerta em
+              previsibilidade, transparência e melhor uso da capacidade operacional.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg">
                 <Link to="/auth">
                   Começar agora <ArrowRight className="ml-2 h-4 w-4" />
@@ -82,7 +89,8 @@ const Index = () => {
 
       {/* PROBLEMA */}
       <section id="problema" className="container mx-auto px-4 py-16 md:py-24">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-[1.05fr_0.95fr] md:items-center">
+          <div>
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">O problema</span>
           <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
             A dor não é esperar — é não saber quanto vai esperar.
@@ -92,6 +100,13 @@ const Index = () => {
             só desconforto: é frustração, quebra de confiança e abandono. A falta de previsibilidade gera picos
             desorganizados, ociosidade em outros horários e sobrecarga operacional.
           </p>
+          </div>
+          <img
+            src={esperaClinica}
+            alt="Pessoas aguardando atendimento em uma clínica"
+            className="aspect-[4/3] w-full rounded-lg object-cover shadow-clinical-lg"
+            loading="lazy"
+          />
         </div>
 
         <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-3">
@@ -118,8 +133,8 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl text-center">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">A solução</span>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
-              Três pilares que reorganizam a experiência de atendimento
+              <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
+              As 3 plataformas conectadas do FLUXO INTEGRA
             </h2>
           </div>
 
@@ -127,18 +142,18 @@ const Index = () => {
             {[
               {
                 icon: Calendar,
-                title: "1. Previsibilidade antes da chegada",
-                desc: "Colaborador recebe link, escolhe entre os 3 melhores horários do dia (com base em ocupação real), vê o checklist de exames e a duração estimada total.",
+                title: "FLUXO VOCÊ",
+                desc: "Cliente acompanha posição na fila, tempo estimado, checklist de exames, marcação online e devolutiva digital.",
               },
               {
                 icon: Eye,
-                title: "2. Transparência em tempo real",
-                desc: "Posição na fila, tempo restante atualizado a cada segundo, status visível pelo celular. Se algo atrasar, o cliente sabe — sem precisar perguntar na recepção.",
+                title: "FLUXO CLÍNICA",
+                desc: "Operação monitora fila, disponibilidade, presença, gargalos, relatórios e fluxo contínuo de dados em tempo real.",
               },
               {
                 icon: Brain,
-                title: "3. Inteligência adaptativa",
-                desc: "O sistema aprende com cada atendimento, recalcula a média móvel por exame, detecta gargalos e ajusta toda a fila em cascata quando algo foge do padrão.",
+                title: "FLUXO EMPRESA",
+                desc: "Empresas acompanham check-in/out, cronogramas obrigatórios, encaminhamento de funcionários e documentos online.",
               },
             ].map((s) => (
               <Card key={s.title} className="border-primary/20 shadow-clinical-lg">

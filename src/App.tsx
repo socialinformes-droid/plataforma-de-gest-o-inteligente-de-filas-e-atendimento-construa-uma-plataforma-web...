@@ -62,6 +62,23 @@ const App = () => (
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/app/schedule"
+              element={
+                <ProtectedRoute>
+                  <Schedule />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/companies"
+              element={
+                <ProtectedRoute>
+                  <Companies />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/c/:token" element={<CollaboratorPortal />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

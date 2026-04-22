@@ -90,9 +90,9 @@ export default function QueuePanel() {
       <div className="mx-auto max-w-7xl px-4 py-6 md:px-8">
         <header className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Painel da fila</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">Fluxo Clínica</h1>
             <p className="text-sm text-muted-foreground">
-              {new Date().toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "long" })}
+              Gestão da fila, presença, gargalos e atendimento em tempo real · {new Date().toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "long" })}
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
