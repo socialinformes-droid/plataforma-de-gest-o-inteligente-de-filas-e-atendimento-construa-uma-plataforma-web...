@@ -116,7 +116,7 @@ export default function CollaboratorPortal() {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Activity className="h-5 w-5" />
           </div>
-          <span className="font-semibold">{info.clinic_name}</span>
+          <span className="font-semibold">FLUXO VOCÊ · {info.clinic_name}</span>
         </div>
 
         <Card className="shadow-clinical-lg">
@@ -127,6 +127,9 @@ export default function CollaboratorPortal() {
               {info.company_name}
             </CardDescription>
           </CardHeader>
+          <CardContent className="pt-0 text-sm text-muted-foreground">
+            Acompanhe seus exames, registre chegada e saída e reduza a incerteza sobre o tempo de permanência.
+          </CardContent>
         </Card>
 
         <h2 className="mb-3 mt-6 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
